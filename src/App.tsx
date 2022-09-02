@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { Chocolate } from "./Chocolate";
+import { chocolates } from "./chocolates";
+import { ShoppingBag } from "./ShoppingBag";
+import { IChocolateItem } from "./chocolates";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+export const App: React.FC = () => {
+  //since now we want try yo make it like wen you click on add button , then your object add to add to shp[[img button]]
+  const [shoppingBagItems, setShoppingBagItems] = useState<IChocolateItem[]>(
+    []
   );
-}
-
-export default App;
+  const addToShoppingBag = (itemToAdd: IChocolateItem) => {
+    setShoppingBagItems([...shoppingBagItems, itemToAdd]);
+  };
+  return (
+    <>
+      <div>
+        <h1>something Header</h1>
+        <ShoppingBag items={shoppingBagItems} />
+      </div>
+      <div>
+        {chocolates.map((each) => (
+          <Chocolate chocolate={each} addToShoppingBag={addToShoppingBag} />
+        ))}
+      </div>
+    </>
+  );
+};
